@@ -8,9 +8,9 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/gogazub/app/internal/api"
-	"github.com/gogazub/app/internal/core"
-	"github.com/gogazub/app/internal/util"
+	"github.com/gogazub/task-service/internal/api"
+	"github.com/gogazub/task-service/internal/core"
+	"github.com/gogazub/task-service/internal/util"
 )
 
 func main() {

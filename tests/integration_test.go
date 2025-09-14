@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogazub/app/internal/api"
-	"github.com/gogazub/app/internal/core"
+	"github.com/gogazub/task-service/internal/api"
+	"github.com/gogazub/task-service/internal/core"
 )
 
 // -------------------- test app builder --------------------
@@ -185,7 +185,6 @@ func (p *countingProc) Proc(ctx context.Context, t *core.Task) error {
 		}
 	}
 
-	// ВАЖНО: игнорируем ctx.Done() здесь — текущая задача должна доделаться
 	if p.sleep > 0 {
 		time.Sleep(p.sleep)
 	}
@@ -237,7 +236,6 @@ func TestEnqueueAndProcessSuccess(t *testing.T) {
 	})
 	defer app.close()
 
-	// Перекроем default-процессор «в момент» — используем countingProc без падений
 	proc := newCountingProc(map[string]int{}, nil, 10*time.Millisecond)
 	app.cancel() // остановим старый контекст
 	ctx, cancel := context.WithCancel(context.Background())

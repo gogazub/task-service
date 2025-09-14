@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gogazub/app/internal/core"
+	"github.com/gogazub/task-service/internal/core"
 )
 
 type Handlers struct {
@@ -33,7 +33,6 @@ func (h *Handlers) Enqueue(w http.ResponseWriter, r *http.Request) {
 		Payload:    req.Payload,
 		MaxRetries: req.MaxRetries,
 	}
-	// не блокируемся: если очередь переполнена — 503
 	select {
 	case h.ReadyOut <- task:
 		w.Header().Set("Content-Type", "application/json")
