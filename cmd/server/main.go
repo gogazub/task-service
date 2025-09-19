@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/gogazub/task-service/internal/api"
@@ -64,7 +65,7 @@ func main() {
 
 	// Ожидаем SIGINT/SIGTERM
 	sigCh := make(chan os.Signal, 1)
-	signal.Notify(sigCh, os.Interrupt, os.Kill) // в *nix вместо os.Kill используйте syscall.SIGTERM
+	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
 	<-sigCh
 
 	// Graceful shutdown:
